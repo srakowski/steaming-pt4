@@ -1,0 +1,50 @@
+extends layout
+
+block content
+    h1 Create Steamer
+    form(action="/create", method="post", onsubmit="return formContent()")
+        div.form-group
+            label Title
+            input#title.form-control(type="text", placeholder="the title of your steamer", name="title", autofocus)
+        div.form-group               
+            label Content        
+            textarea#editor(name="content", style="width: 100%; min-height: 400px;", wrap="soft", spellcheck="false").form-control
+        button.btn.btn-default(type="submit") Create
+    script.        
+        document.onreadystatechange = function () {
+            if (document.readyState == "complete") {
+                var editor = document.getElementById("editor");
+                editor.addEventListener('keydown', function (e) {                   
+                                        
+                    // prevent backspace, delete, ctrl+z, ctrl+v (paste), ctrl+x (cut) insert
+                    if (e.keyCode == 8 || e.keyCode == 46 ||  e.keyCode == 45 || 
+                        (e.ctrlKey && e.keyCode == 90) || (e.ctrlKey && e.keyCode == 86) || 
+                        (e.ctrlKey && e.keyCode == 88))
+                        e.preventDefault();
+                        
+                    // if something is selected prevent any keys from being pressed                                                
+                    if (window.getSelection().toString().length > 0) {
+                        e.preventDefault();
+                        if (window.getSelection) {
+                            if (window.getSelection().empty) {
+                                window.getSelection().empty();
+                            } else if (window.getSelection().removeAllRanges) {
+                                window.getSelection().removeAllRanges();
+                            }
+                        } else if (document.selection) {
+                            document.selection.empty();
+                        }                        
+                    }        
+                });           
+                
+                // dont be dragging stuff in there
+                editor.ondrop = function () {
+                    return false;
+                }
+                
+                // none of that right-click cut/copy bs
+                editor.oncontextmenu = function () {
+                    return false;
+                }
+            }
+        }

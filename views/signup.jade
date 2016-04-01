@@ -1,0 +1,22 @@
+extends layout
+    
+block content
+    h1 Sign up for Steaming
+    p Are you ready to get started with the hottest social networking blogging app on the web?
+    p Well, good luck with that. Sign up with Steaming for something else...
+    - if (typeof error != "undefined") {
+        p        
+            span(style="color: red")=error
+    - }         
+    form(action="/sign/up", method="post")
+        div.form-group
+            label(for="username") Desired Username
+            input.form-control(type="text", name="username", placeholder="e.g. chicken_nugget_lover21", autofocus)
+        div.form-group
+            label(for="password") Password
+            input#password.form-control(type="password", name="password", placeholder="e.g. ********")
+        button.btn.btn-default(type="submit") Sign up       
+        br
+        br
+        small or 
+        a(href="/sign/in") Sign in        

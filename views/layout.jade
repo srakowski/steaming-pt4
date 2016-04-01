@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title Steaming: When Quality Doesn't Matter
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')    
+  body  
+    div.container  
+        div.row
+            div.col-xs-12
+                - if (signedIn) {
+                    div.pull-right
+                        a(href="/sign/out") Sign out               
+                - } else {
+                    div.pull-right
+                        a(href="/sign/in") Sign in 
+                        small or 
+                        a(href="/sign/up") Sign Up                 
+                - }            
+            div.col-xs-12            
+                a(href="/")
+                    img(src="/images/steaming_logo.png")            
+        block content
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')
